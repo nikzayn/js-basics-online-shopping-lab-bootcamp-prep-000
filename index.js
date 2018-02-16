@@ -19,19 +19,39 @@ function addToCart(item) {
 }
 
 function viewCart() {
-    if(cart.length===0){
-      console.log("Your shopping cart is empty.");
-    }
-    else{
-      var items = [];
-      for(var i = 0; i < cart.length; i++){
-        for(var item in cart[i]){
-          items.push(item + " at $" + cart[i][item]);
+    var size = cart.length
+  var cartMessage = 'In your cart, you have'
+  var itemPrice = []
+  var twoItems = itemPrice.join(' and')               //returns array with new delimiter
+  var moreItems = itemPrice.slice(0, itemPrice.length -1).join(' ,')
+  var lastItem = itemPrice[itemPrice.length-1]
+  //if empty
+  if (size === 0) {
+    console.log("Your shopping cart is empty.")
+  }
+  //If not empty loop
+  else {
+    for (var i=0; i < size; i++) {
+      //Loop Dictionary
+      var cart0 = cart[i]
+      var item = Object.keys(cart0)[i]                //retrieves item as string from cart
+      var price = cart0[item]                         //retrieves price as string from cart
+      //Loop push
+      itemPrice.push(` ${item} at ${price}`)          //adds it to the target array
+      //Cart Messages
+      if (size === 1) {                               //if 1 in cart
+        console.log(`${cartMessage} ${itemPrice}.`)
       }
-     console.log("In your cart, you have " + itemPrice.slice(0, itemPrice.length -1).join(' and ') + ".");
+      if (size === 2) {                               //if 2 in cart
+        console.log(`${cartMessage}${twoItems}.`)
+      }
+      if (size >= 3) {                                //if 3 or more in cart
+        console.log(`${cartMessage}${moreItems} and${lastItem}.`)
+      }
+    }
+  }
 }
-}
-}
+
 function total()  {
   var sum = 0;
   for (var i=0; i<cart.length; i++) {
